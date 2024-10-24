@@ -1,0 +1,110 @@
+Program ::= Declaration_list
+
+Declaration_list ::= Statement DeclarationList
+Declaration_list ::= Declaration_fun Declaration_list
+Declaration_list ::= ''
+
+Statement ::= IfStmt
+Statement ::= ForStmt
+Statement ::= WhileStmt
+Statement ::= ReturnStmt
+Statement ::= PrintStmt
+Statement ::= Block
+Statement ::= identifier Statement_more//Type_declaration
+Statement ::= Factor Expressions
+
+Statement_more ::= Type_declaration
+
+Statement_more ::= VarDecl_more
+
+Type_declaration ::= Type_factor Expressions ; 
+Type_declaration ::= : Type Type_factor VarDecl_more
+
+Type_factor ::= ''
+Type_factor ::= [ Factor_more Expressions ]
+
+Expressions ::= Expression Expressions
+Expressions ::= ''
+
+Factor ::= Literal
+Factor ::= ( Factor_more Expressions )
+
+Factor_more ::= Factor
+Factor_more ::= identifier
+
+Declaration_fun ::= void identifier FunctionDecl
+Declaration_fun ::= Type identifier FunctionDecl 
+
+FunctionDecl ::= ( Param_list ) Block
+
+Type ::= integer 
+Type ::= boolean 
+Type ::= char
+Type ::= string 
+
+Param_list ::= Param Param_list
+Param_list ::= ''
+
+Param ::= Type identifier Param_tail
+
+Param_tail ::= ,
+Param_tail ::= ''
+
+VarDecl :: identifier VarDecl_more
+
+VarDecl_more ::= = Factor_more Expressions ;
+
+Block ::= { StmtList }
+
+StmtList ::= Statement StmtList 
+StmtList ::= ''
+
+IfStmt ::= if ( Factor_more Expressions ) StatementList Else
+
+Else ::= else StatementList | ''
+
+
+ForStmt ::= for ( VarDecl  Factor_more Expressions ; Factor_more Expressions ) Statement
+
+
+WhileStmt ::= while ( Factor_more Expressions ) Statement
+
+ReturnStmt ::= RETURN Factor_more Expressions;
+
+PrintStmt ::= PRINT ( Factor_more Expressions ) ;
+
+Expression ::= OrExpr Factor_more
+Expression ::= AndExpr Factor_more
+Expression ::= EqExpr Factor_more
+Expression ::= RelExpr Factor_more
+Expression ::= AddExpr Factor_more
+Expression ::= MulExpr Factor_more
+Expression ::= UnaryExpr Factor_more
+Expression ::= SelfExpr 
+Expression ::= VarDecl_more
+
+AndExpr ::= AND
+
+OrExpr ::= OR
+
+EqExpr ::= !=
+EqExpr ::= <=
+EqExpr ::= >=
+EqExpr ::= >
+EqExpr ::= <
+
+AddExpr ::= +
+AddExpr ::= -
+
+MulExprTail ::= *
+MulExprTail ::= /
+MulExprTail ::= %
+
+UnaryExpr ::= !
+
+Literal ::= IntegerLiteral
+Literal ::= CharLiteral
+Literal ::= StringLiteral
+Literal ::= BooleanLiteral
+
+
